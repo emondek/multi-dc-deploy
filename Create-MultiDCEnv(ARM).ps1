@@ -60,7 +60,7 @@ Publish-AzureRmVMDscConfiguration -ResourceGroupName $rgName -ConfigurationPath 
 
 # Get the latest version of the PowerShell DSC extension
 Get-AzureVMAvailableExtension -Publisher Microsoft.PowerShell
-$dscExtensionVersion = "2.*"
+$dscExtensionVersion = "2.13"
 
 # Create the VNets
 $vnetName1 = "${appName}${region1}vnet1"
@@ -391,3 +391,9 @@ $endPoint2 = "${appName}${region2}ep1"
 $tmProfile = New-AzureRmTrafficManagerProfile -ResourceGroupName $rgName –Name $tmName -TrafficRoutingMethod Weighted -RelativeDnsName $tmDomainName -Ttl 300 -MonitorProtocol HTTP -MonitorPort 80 -MonitorPath "/"
 New-AzureRmTrafficManagerEndpoint -ResourceGroupName $rgName –Name $endPoint1 –ProfileName $tmName –Type AzureEndpoints -TargetResourceId $publicIP1.Id –EndpointStatus Enabled
 New-AzureRmTrafficManagerEndpoint -ResourceGroupName $rgName –Name $endPoint2 –ProfileName $tmName –Type AzureEndpoints -TargetResourceId $publicIP2.Id –EndpointStatus Enabled
+
+# Configure Azure Insights with Auto-scale
+### TO DO ###
+
+# Clean up the environment
+Remove-AzureRmResourceGroup -Name $rgName
